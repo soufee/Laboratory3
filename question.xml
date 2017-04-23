@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Questions>
+    <questions>
+        <quest>БТНВиРИП</quest>
+        <answer>Без труда не вытащишь и рыбку из пруда</answer>
+        <hint>пословица про труд</hint>
+        <score>3</score>
+    </questions>
+    <questions>
+        <quest>ДВПЧ</quest>
+        <answer>Делу время, потехе час</answer>
+        <hint>пословица о том, что каждому делу свое время</hint>
+        <score>4</score>
+    </questions>
+    <questions>
+        <quest>СКБНП</quest>
+        <answer>Старый конь борозды не портит</answer>
+        <hint>пословица о том, что опытный трудяга лучше выполнит свою работу</hint>
+        <score>6</score>
+    </questions>
+    <questions>
+        <quest>ОСиОТНЗ</quest>
+        <answer>От сумы и от тюрьмы не зарекайся</answer>
+        <hint>о том, что надо осторожно говорить,и не известно что еще с нами может произойти</hint>
+        <score>10</score>
+    </questions>
+    <questions>
+        <quest>БсВКЛ</quest>
+        <answer>Баба с возу - кобыле легче</answer>
+        <hint>о сварливых женщинах</hint>
+        <score>7</score>
+    </questions>
+    <questions>
+        <quest>ДПК</quest>
+        <answer>Долг платежом красен</answer>
+        <hint>о том, что за добро надо платить добром</hint>
+        <score>10</score>
+    </questions>
+    <questions>
+        <quest>ДЛкО</quest>
+        <answer>Дорога ложка к обеду</answer>
+        <hint>мораль о том, что любая вещь должна быть под рукой именно тогда, когда она пригодится</hint>
+        <score>7</score>
+    </questions>
+    <questions>
+        <quest>ДНП</quest>
+        <answer>Доверяй, но проверяй</answer>
+        <hint>Иначе говоря, на бога надейся, а сам не плошай</hint>
+        <score>7</score>
+    </questions>
+    <questions>
+        <quest>СОНЖ</quest>
+        <answer>Семеро одного не ждут</answer>
+        <hint>О тех, кто любит опаздывать</hint>
+        <score>4</score>
+    </questions>
+    <questions>
+        <quest>СРООРО</quest>
+        <answer>Семь раз отмерь, один раз отрежь</answer>
+        <hint>Хорошенько подумай, прежде чем что-то делать</hint>
+        <score>6</score>
+    </questions>
+</Questions>

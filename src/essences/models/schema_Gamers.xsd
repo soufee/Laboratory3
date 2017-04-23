@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Gamer" type="gamer"/>
+  <xs:element name="Gamers">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="gamers" type="gamer" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="gamer">
+    <xs:sequence>
+      <xs:element name="niackname" type="xs:string" minOccurs="0"/>
+      <xs:element name="score" type="xs:int"/>
+      <xs:element name="password" type="xs:string" minOccurs="0"/>
+      </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+
