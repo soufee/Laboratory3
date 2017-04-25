@@ -8,7 +8,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
@@ -17,10 +16,11 @@ import java.io.IOException;
 public class HelloServlet extends HttpServlet {
     private static Logger userLogger = Logger.getLogger(MySessionListener.class);
     public static String userName;
-private static Logging userService = new Logging();
+    private static Logging userService = new Logging();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/index.jsp").forward(req, resp);
+        req.getRequestDispatcher("/hello.jsp").forward(req, resp);
     }
 
     @Override
@@ -29,22 +29,26 @@ private static Logging userService = new Logging();
         String password = req.getParameter("password");
         userLogger.debug("loging: Получил логин и пароль");
         if (userService.auth(login, password) != null) {
-            HttpSession session = req.getSession(true);
-
-            session.setMaxInactiveInterval(5);
+//            HttpSession session = req.getSession(true);
+//
+//            session.setMaxInactiveInterval(30);
             userName = login;
-        userLogger.debug("Авторизация ");
-            req.getSession().setAttribute("userLogin", login);
-           if (userService.auth(login, password).isAdmin())
-            resp.sendRedirect(req.getContextPath() + "/helloadmin");
-           else  resp.sendRedirect(req.getContextPath() + "/hello.jsp");
+            userLogger.debug("Авторизация ");
+            req.setAttribute("userLogin", login);
+
+
+            if (userService.auth(login, password).isAdmin())
+                resp.sendRedirect(req.getContextPath() + "/helloadmin");
+            else resp.sendRedirect(req.getContextPath() + "/hello");
 
             userLogger.debug("Логимся " + this.getClass().getName());
-        } else
-            {
-                resp.sendRedirect(req.getContextPath() + "/registration.jsp");
-                userLogger.debug("Авторизация не удалась");
-            }
+        } else {
+
+            resp.sendRedirect(req.getContextPath() + "/registration");
+            userLogger.debug("Авторизация не удалась");
+        }
+
+
     }
-    }
+}
 

@@ -5,6 +5,7 @@ import essences.models.Gamers;
 import listeners.MySessionListener;
 import main.utils.ConnectionFactory;
 import org.apache.log4j.Logger;
+import org.postgresql.util.PSQLException;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -43,10 +44,14 @@ public class GamersDAO implements GamerDAOInterface{
                 userLogger.debug("Gamer created " + q1);
            }
 
-            statement.close();
+
             connection.close();
 
-        } catch (SQLException e) {
+        } catch (PSQLException e)
+        {
+        userLogger.debug("PSQL Mistake in GamersDAO "+e.getMessage());
+        }
+        catch (SQLException e) {
 userLogger.debug("Ошибка с SQL "+e.getMessage());
         } finally {
 

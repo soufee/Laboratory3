@@ -38,14 +38,14 @@
 
                     <div class="row">
                         <div class="input-field col s12">
-                            <input class="validate" type="text" name="login" id="login"/>
+                            <input class="validate" type="text" name="login" id="login"  required="" pattern=".{6,20}" title="Must be at least 6 characters and no longer than 20 characters."/>
                             <label for="login">Enter your login</label>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="input-field col s12">
-                            <input class="validate" type="password" name="password" id="password"/>
+                            <input class="validate" type="password" name="password" id="password" required="" pattern=".{6,20}" title="Must be at least 6 characters and no longer than 20 characters."/>
                             <label for="password">Enter your password</label>
                         </div>
 
@@ -68,6 +68,9 @@
                         <button type="submit" name="btn_login" id="btn_login" class="col s12 btn btn-large waves-effect indigo">Registrate!
                         </button>
                     </div>
+                    <div class="row">
+                        <a href="/index">I have registered</a>
+                    </div>
                 </form>
 
             </div>
@@ -88,7 +91,7 @@
             return passes.each(function(ndx,el){$(el).addClass('invalid')});
         passes.each(function(ndx,el){$(el).removeClass('invalid').addClass('valid');});
 
-        if(!/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/.test(email.val()))
+        if(!/^\w+@[a-zA-Z_\.\-]+?\.[a-zA-Z]{2,3}$/.test(email.val()))
             return email.addClass('invalid');
         email.removeClass('invalid').addClass('valid');
 

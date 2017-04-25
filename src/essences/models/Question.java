@@ -28,6 +28,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "question", propOrder = {
+        "q_id",
         "quest",
         "answer",
         "hint",
@@ -35,7 +36,7 @@ import javax.xml.bind.annotation.XmlType;
 })
 @XmlRootElement(name = "Question")
 public class Question {
-
+protected int q_id;
     protected String quest;
     protected String answer;
     protected String hint;
@@ -58,6 +59,14 @@ public class Question {
 
     public void setHint(String hint) {
         this.hint = hint;
+    }
+
+    public int getQ_id() {
+        return q_id;
+    }
+
+    public void setQ_id(int q_id) {
+        this.q_id = q_id;
     }
 
     /**

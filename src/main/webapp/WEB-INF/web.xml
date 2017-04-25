@@ -4,34 +4,85 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
          version="2.4">
   <display-name>Archetype Created Web Application</display-name>
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
      <listener>
         <listener-class>listeners.MySessionListener</listener-class>
     </listener>
     <listener>
         <listener-class>listeners.AppStartListener</listener-class>
     </listener>
+    <!--<servlet>-->
+        <!--<servlet-name>HelloServlet</servlet-name>-->
+        <!--<servlet-class>listeners.servlets.HelloServlet</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>HelloServlet</servlet-name>-->
+        <!--<url-pattern>/hello</url-pattern>-->
+    <!--</servlet-mapping>-->
     <servlet>
-        <servlet-name>HelloServlet</servlet-name>
-        <servlet-class>listeners.servlets.HelloServlet</servlet-class>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>listeners.session.LoginServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>HelloServlet</servlet-name>
-        <url-pattern>/hello</url-pattern>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/LoginServlet</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>LogoutServlet</servlet-name>
-        <servlet-class>listeners.servlets.LogoutServlet</servlet-class>
+        <servlet-class>listeners.session.LogoutServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
-        <url-pattern>/index</url-pattern>
+        <url-pattern>/logout</url-pattern>
     </servlet-mapping>
+    <!--<servlet>-->
+        <!--<servlet-name>MyLogoutServlet</servlet-name>-->
+        <!--<servlet-class>listeners.servlets.MyLogoutServlet</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>MyLogoutServlet</servlet-name>-->
+        <!--<url-pattern>/index</url-pattern>-->
+    <!--</servlet-mapping>-->
     <servlet>
         <servlet-name>AdminServlet</servlet-name>
         <servlet-class>listeners.servlets.AdminServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AdminServlet</servlet-name>
-        <url-pattern>/helloadmin</url-pattern>
+        <url-pattern>/admin/helloadmin</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>RegistrationServlet</servlet-name>
+        <servlet-class>listeners.servlets.RegistrationServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RegistrationServlet</servlet-name>
+        <url-pattern>/registration</url-pattern>
+    </servlet-mapping>
+    <!--<filter>-->
+        <!--<filter-name>RequestLoggingFilter</filter-name>-->
+        <!--<filter-class>listeners.filters.RequestLoggingFilter</filter-class>-->
+    <!--</filter>-->
+    <filter>
+        <filter-name>AuthenticationFilter</filter-name>
+        <filter-class>listeners.filters.AuthenticationFilter</filter-class>
+    </filter>
+<filter>
+    <filter-name>AdminFilter</filter-name>
+    <filter-class>listeners.filters.AdminFilter</filter-class>
+</filter>
+    <filter-mapping>
+        <filter-name>AdminFilter</filter-name>
+        <url-pattern>/admin/*</url-pattern>
+    </filter-mapping>
+    <!--<filter-mapping>-->
+        <!--<filter-name>RequestLoggingFilter</filter-name>-->
+        <!--<url-pattern>REQUEST</url-pattern>-->
+    <!--</filter-mapping>-->
+    <filter-mapping>
+        <filter-name>AuthenticationFilter</filter-name>
+        <url-pattern>/user/*</url-pattern>
+    </filter-mapping>
 </web-app>

@@ -8,7 +8,7 @@ import java.io.IOException;
 /**
  * Created by Shoma on 22.04.2017.
  */
-public class LogoutServlet extends HttpServlet {
+public class MyLogoutServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     //    resp.setContentType("text/html;charset=UTF-8");

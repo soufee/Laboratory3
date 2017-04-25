@@ -28,7 +28,10 @@ public class Logging {
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 user = createEntity(resultSet);
-            }
+            } else
+                {
+                    System.out.println("Пароль и логин не совпали");
+                }
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -55,6 +58,7 @@ public Gamer auth(String login, String password) {
 
     public boolean isadmin (Gamer g)
     {
+
      String login = g.getNiackname();
      String password = g.getPassword();
      g = findUserByLoginAndPassword(login,password);

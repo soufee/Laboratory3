@@ -33,11 +33,17 @@ public class QuestionsDAO implements QuestionDAOInterface {
             while (result.next()) {
                 q1 = objectFactory.createQuestion(result.getString(2), result.getString("answer"),
                         result.getString("hint"), result.getInt("score"));
+                q1.setQ_id(result.getInt("q_id"));
                 q.getQuestions().add(q1);
                 userLogger.debug("Making a Questions object from SQL " + q1);
             }
-            statement.close();
-        } catch (SQLException e) {
+
+        }
+        catch (PSQLException e)
+        {
+            userLogger.debug("PSQL Mistake in QuestionDAO"+e.getMessage());
+        }
+        catch (SQLException e) {
             userLogger.debug("Mistake with SQL " + e.getMessage());
         } finally {
             try {
