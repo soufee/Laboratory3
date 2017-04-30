@@ -1,42 +1,44 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Shoma
-  Date: 22.04.2017
-  Time: 14:37
-  To change this template use File | Settings | File Templates.
---%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<html>
-<head>
+
 
     <title>Hello Admin</title>
 </head>
 <body>
 <%
     //allow access only if session exists
-    String user = (String) session.getAttribute("user");
+   // String user = (String) session.getAttribute("login");
     String userName = null;
     String sessionID = null;
     Cookie[] cookies = request.getCookies();
     if(cookies !=null){
         for(Cookie cookie : cookies){
-            if(cookie.getName().equals("user")) userName = cookie.getValue();
+            if(cookie.getName().equals("login")) userName = cookie.getValue();
             if(cookie.getName().equals("JSESSIONID")) sessionID = cookie.getValue();
         }
     }
 %>
-<h3>Hi <%=userName %>, Login successful. Your Session ID=<%=sessionID %></h3>
+<h3>Hi <%=userName %>, Login successful.
+    Your Session ID=<%=sessionID %>
+</h3>
 <br>
-User=<%=user %>
+User=${login}
 <br>
-<a href="/user/checkoutpage.jsp">Checkout Page</a>
-<form action="/logout" method="post">
+<a href="/user/checkoutpage">Мой профайл</a>
+<form action="/logout" method="get">
     <input type="submit" value="Logout" >
 </form>
+
 <br>
-<% String message1 = (String) request.getAttribute("user");%>
-You entered as <%=message1%>
+<%--<form action="/admin/helloadmin" method="post">--%>
+<%--&lt;%&ndash;<% String message1 = user;%>&ndash;%&gt;--%>
+<%--You entered as <%=message1%>--%>
+<%--</form>--%>
+
 
 <table border="0" width="75%">
     <tr>
@@ -51,7 +53,7 @@ You entered as <%=message1%>
         <td>edit</td>
         <td>delete</td>
     </tr>
-    <c:forEach items="${requestScope.quests}" var="item1">
+    <c:forEach items="${questions}" var="item1">
         <tr>
             <td width="5%"><c:out value="${item1.q_id}"/></td>
             <td width="10%"><c:out value="${item1.quest}"/></td>
@@ -62,16 +64,19 @@ You entered as <%=message1%>
                 <input type="button" value="Edit" width="100%" onclick="edit(${item1.q_id})"/>
             </td>
             <td width="10%">
-                <form action="/adminservlet" method="post" style="margin:0;">
+                <form action="/delete" method="post" style="margin:0;">
                     <input type="hidden" name="idDel" value="${item1.q_id}"/>
+                    <input type="hidden" name="table" value="question"/>
+
                     <input type="submit" value="Delete" width="100%"/>
                 </form>
             </td>
         </tr>
         <tr style="display:none;" id="edit_${item1.q_id}">
             <td>
-                <form action="/adminservlet" method="post">
+                <form action="/edit" method="post">
                     <input type="hidden" name="iId" value="${item1.q_id}"/>
+                    <input type="hidden" name="table" value="question"/>
                     <input type="hidden" name="iQuestion" value="${item1.quest}"/>
                     <input type="hidden" name="iAnswer" value="${item1.answer}"/>
                     <input type="hidden" name="iScore" value="${item1.score}"/>
@@ -88,17 +93,16 @@ You entered as <%=message1%>
     </c:forEach>
     <tr>
         <td colspan="2">
-            <form action="/main/webapp/admin/helloadmin.jsp" method="post">
-                <input type="submit" value="AddQuestion"/>
-            </form>
+            <a href="/admin/addquestion.jsp">Add question</a>
         </td>
     </tr>
 </table>
 
 <table border="0" width="75%">
     <tr>
-        <% String message = (String) request.getAttribute("value");%>
-        <td colspan="7" align="center" style="font-weight:bold;font-size:15pt"><%=message%>
+        <%--<% String message = (String) request.getAttribute("value");%>--%>
+        <td colspan="7" align="center" style="font-weight:bold;font-size:15pt">Список пользователей
+            <%--<%=message%>--%>
         </td>
     </tr>
     <tr style="font-weight:bold">
@@ -110,7 +114,7 @@ You entered as <%=message1%>
         <td>edit</td>
         <td>delete</td>
     </tr>
-    <c:forEach items="${requestScope.list}" var="item">
+    <c:forEach items="${gamers}" var="item">
         <tr>
             <td width="5%"><c:out value="${item.rdr_id}"/></td>
             <td width="15%"><c:out value="${item.niackname}"/></td>
@@ -123,26 +127,31 @@ You entered as <%=message1%>
                 <input type="button" value="Edit" width="100%" onclick="edit(${item.rdr_id})"/>
             </td>
             <td width="10%">
-                <form action="/adminservlet" method="post" style="margin:0;">
+                <form action="/delete" method="post" style="margin:0;">
                     <input type="hidden" name="idDel" value="${item.rdr_id}"/>
+                    <input type="hidden" name="table" value="user"/>
+
                     <input type="submit" value="Delete" width="100%"/>
                 </form>
             </td>
         </tr>
         <tr style="display:none;" id="edit_${item.rdr_id}">
             <td>
-                <form action="/adminservlet" method="post">
-                    <input type="hidden" name="iRdr_id" value="${item.rdr_id}"/>
+                <form action="/edit" method="post">
+                    <input type="hidden" name="iId" value="${item.rdr_id}"/>
+                    <input type="hidden" name="table" value="user"/>
                     <input type="hidden" name="iNickname" value="${item.niackname}"/>
                     <input type="hidden" name="iCsore" value="${item.score}"/>
                     <input type="hidden" name="iPassword" value="${item.password}"/>
                     <input type="hidden" name="iEmail" value="${item.email}"/>
+
                         <%--<input type="hidden" name="iIsadmin" value="${item.isAdmin}"/>--%>
                         <%--<input type="hidden" name="iIsblocked" value="${item.isBlocked}"/>--%>
                     <input type="text" name="nickname" placeholder="nickname"/>
                     <input type="number" name="csore" placeholder="csore"/>
                     <input type="text" name="password" placeholder="password"/>
                     <input type="text" name="email" placeholder="email"/>
+                    <input type="checkbox" name="isadmin" placeholder="isadmin"/>
                         <%--<input type="checkbox" name="isadmin" placeholder="isadmin"/>--%>
                         <%--<input type="checkbox" name="isblocked" placeholder="isblocked"/>--%>
                     <input type="button" value="Cancel" onclick="cancel(${item.rdr_id})"/>
@@ -153,9 +162,9 @@ You entered as <%=message1%>
     </c:forEach>
     <tr>
         <td colspan="2">
-            <form action="/main/webapp/admin/helloadmin.jsp" method="post">
-                <input type="submit" value="AddGamer"/>
-            </form>
+
+                <a href="/admin/adduser.jsp">Add User</a>
+
         </td>
     </tr>
 </table>

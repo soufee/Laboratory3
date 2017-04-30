@@ -69,7 +69,7 @@
                         </button>
                     </div>
                     <div class="row">
-                        <a href="/index">I have registered</a>
+                        <a href="/">I have registered</a>
                     </div>
                 </form>
 

@@ -1,6 +1,6 @@
 package main.utils;
 
-import essences.models.Question;
+import main.DB.models.Question;
 import org.junit.*;
 
 import java.io.File;

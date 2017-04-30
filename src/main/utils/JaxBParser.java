@@ -1,6 +1,6 @@
 package main.utils;
 
-import listeners.MySessionListener;
+import main.webservices.listeners.MySessionListener;
 import org.apache.log4j.Logger;
 
 import javax.xml.bind.*;
