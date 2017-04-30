@@ -131,21 +131,29 @@ public class QuestionsDAO implements QuestionDAOInterface {
 
         ObjectFactory objectFactory = new ObjectFactory();
         Question q1 = null;
+        Statement statement = null;
         try {
-            Statement statement = connection.createStatement();
+            statement = connection.createStatement();
             userLogger.debug("Statement " + statement);
             ResultSet result =
                     statement.executeQuery("select * from public.questions where q_id = " + id);
             userLogger.debug("SQL " + result);
 
-
+result.next();
             q1 = objectFactory.createQuestion(result.getString("question"), result.getString("answer"),
                     result.getString("hint"), result.getInt("score"));
             q1.setQ_id(result.getInt("q_id"));
 
             userLogger.debug("Making a Questions object from SQL " + q1);
         } catch (SQLException e) {
-            e.printStackTrace();
+            userLogger.error(e.getMessage());
+        } finally {
+            try {
+                connection.close();
+            statement.close();
+            } catch (SQLException e) {
+                userLogger.error(e.getMessage());
+            }
         }
         return q1;
     }

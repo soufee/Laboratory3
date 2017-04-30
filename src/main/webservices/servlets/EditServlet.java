@@ -30,9 +30,10 @@ public class EditServlet {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView login(HttpServletRequest req,
+    public ModelAndView edit(HttpServletRequest req,
                               @RequestParam(value = "iId", required = true) String id,
                               @RequestParam(value = "table", required = true) String table) {
+        userLogger.debug("Выполняется метод POST сервлета EditServlet");
         ModelAndView mav = new ModelAndView();
         ObjectFactory factory = new ObjectFactory();
         if (table.equals("question")) {
@@ -40,20 +41,22 @@ public class EditServlet {
             try {
                 service = new QuestionService();
                 Question question = service.getQuestById(Integer.parseInt(id));
+                userLogger.debug("Редактируется вопрос "+id);
                 Question questionupdate;
-                String quest = req.getParameter("iQuestion");
+                String quest = req.getParameter("question");
                 if (quest == null || quest.equals(""))
                     quest = question.getQuest();
-                String answer = req.getParameter("iAnswer");
+                String answer = req.getParameter("answer");
                 if (answer == null || answer.equals(""))
                     answer = question.getAnswer();
-                String score = req.getParameter("iScore");
+                String score = req.getParameter("score");
                 if (score == null || score.equals(""))
                     score = String.valueOf(question.getScore());
-                String hint = req.getParameter("iHint");
+                String hint = req.getParameter("hint");
                 if (hint == null || hint.equals(""))
                     hint = question.getHint();
 questionupdate = factory.createQuestion(quest,answer,hint,Integer.parseInt(score));
+userLogger.debug("Новая форма вопроса "+questionupdate);
 service.updateQuestion(questionupdate,Integer.parseInt(id));
             } catch (Exception e) {
                 userLogger.error("Возникла какая-то ошибка во время редактирования вопроса "+e.getMessage());
@@ -65,21 +68,23 @@ service.updateQuestion(questionupdate,Integer.parseInt(id));
             try {
                 service = new GamerService();
                 Gamer gamer = service.findGamerById(Integer.parseInt(id));
-                Gamer gamerupdate;
-                String nickname = req.getParameter("iNickname");
-                if (quest == null || quest.equals(""))
-                    quest = question.getQuest();
-                String password = req.getParameter("iAnswer");
-                if (answer == null || answer.equals(""))
-                    answer = question.getAnswer();
-                String email = req.getParameter("iScore");
-                if (score == null || score.equals(""))
-                    score = String.valueOf(question.getScore());
-                boolean isadmin = req.getParameter("iHint");
-                if (hint == null || hint.equals(""))
-                    hint = question.getHint();
-                questionupdate = factory.createQuestion(quest,answer,hint,Integer.parseInt(score));
-                service.updateQuestion(questionupdate,Integer.parseInt(id));
+                Gamer gamerupdate = null;
+                boolean adm;
+                String nickname = req.getParameter("nickname");
+                if (nickname == null || nickname.equals(""))
+                    nickname = gamer.getNiackname();
+                String password = req.getParameter("password");
+                if (password==null||password.equals(""))
+                    password = gamer.getPassword();
+                String email = req.getParameter("email");
+                if (email==null||email.equals(""))
+                    email=gamer.getEmail();
+                String score = req.getParameter("csore");
+                if (score==null||score.equals(""))
+                    score = String.valueOf(gamer.getScore());
+               gamerupdate = factory.createGamer(nickname,password,email,gamer.isAdmin());
+               gamerupdate.setScore(Integer.parseInt(score));
+                service.updateGamer(gamerupdate,Integer.parseInt(id));
             } catch (Exception e) {
                 userLogger.error("Возникла какая-то ошибка во время редактирования вопроса "+e.getMessage());
             }

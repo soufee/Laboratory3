@@ -144,6 +144,7 @@ User=${login}
                     <input type="hidden" name="iCsore" value="${item.score}"/>
                     <input type="hidden" name="iPassword" value="${item.password}"/>
                     <input type="hidden" name="iEmail" value="${item.email}"/>
+                    <%--<input type="hidden" name="iAdmin" value="${item.isadmin}"/>--%>
 
                         <%--<input type="hidden" name="iIsadmin" value="${item.isAdmin}"/>--%>
                         <%--<input type="hidden" name="iIsblocked" value="${item.isBlocked}"/>--%>
@@ -151,7 +152,7 @@ User=${login}
                     <input type="number" name="csore" placeholder="csore"/>
                     <input type="text" name="password" placeholder="password"/>
                     <input type="text" name="email" placeholder="email"/>
-                    <input type="checkbox" name="isadmin" placeholder="isadmin"/>
+                    <%--<input type="checkbox" name="isadmin" placeholder="isadmin"/>--%>
                         <%--<input type="checkbox" name="isadmin" placeholder="isadmin"/>--%>
                         <%--<input type="checkbox" name="isblocked" placeholder="isblocked"/>--%>
                     <input type="button" value="Cancel" onclick="cancel(${item.rdr_id})"/>

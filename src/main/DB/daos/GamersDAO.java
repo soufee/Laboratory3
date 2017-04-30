@@ -259,22 +259,30 @@ userLogger.debug("Ошибка с SQL "+e.getMessage());
         userLogger.debug("DBParser makes connection in selectQuestion, GamersDAO" + connection);
 
         ObjectFactory objectFactory = new ObjectFactory();
+        Statement statement = null;
         Gamer q1 = null;
         try {
-            Statement statement = connection.createStatement();
+            statement = connection.createStatement();
             userLogger.debug("Statement " + statement);
             ResultSet result =
                     statement.executeQuery("select * from public.gamer where rdr_id = " + id);
             userLogger.debug("SQL " + result);
 
-
+result.next();
             q1 = objectFactory.createGamer(result.getString("nickname"), result.getString("password"),
                     result.getString("email"), result.getBoolean("isadmin"));
             q1.setRdr_id(result.getInt("rdr_id"));
 
             userLogger.debug("Making a Questions object from SQL " + q1);
         } catch (SQLException e) {
-            e.printStackTrace();
+            userLogger.error(e.getMessage());
+        } finally {
+            try {
+                connection.close();
+                statement.close();
+            } catch (SQLException e) {
+                userLogger.error(e.getMessage());
+            }
         }
         return q1;
     }
