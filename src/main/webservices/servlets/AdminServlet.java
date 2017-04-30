@@ -8,6 +8,7 @@ import main.DB.service.GamerService;
 import main.DB.service.QuestionService;
 import main.webservices.listeners.MySessionListener;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,7 +26,8 @@ import java.util.ArrayList;
  */
 @Controller
 public class AdminServlet {
-
+   @Autowired
+    GamerService service;
     private static Logger userLogger = Logger.getLogger(MySessionListener.class);
 
     @RequestMapping( value = "/admin/helloadmin", method = RequestMethod.GET)
@@ -60,7 +62,8 @@ public class AdminServlet {
 //    }
 
     private  ArrayList<Gamer> getGamers()
-    {GamerService service = new GamerService();
+    {
+//        service = new GamerService();
         Gamers listGamers = service.selectGamers();
         ArrayList<Gamer> list = (ArrayList<Gamer>) listGamers.getGamers();
         return list;
