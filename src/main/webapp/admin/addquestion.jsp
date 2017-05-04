@@ -12,15 +12,15 @@
     <title>Добавление вопроса</title>
 </head>
 <body>
-<table border="1">
-    <form action="/admin/addquestion" method="post">
-        <tr> <td>Вопрос</td><td><input type="text" name="question" placeholder="question"/></td>></tr>
+<form action="/admin/addquestion" method="post">
+    <table border="1">
+        <tr> <td>Вопрос</td><td><input type="text" name="question" placeholder="question"/></td></tr>
         <tr> <td>Ответ</td><td><input type="text" name="answer" placeholder="answer"/></td></tr>
         <tr> <td>Подсказка</td><td><input type="text" name="hint" placeholder="hint"/></td></tr>
         <tr> <td>Очки</td><td><input type="number" name="score" placeholder="score"/></td></tr>
-        <tr><input type="submit" value="Add question" width="100%"/><tr>
-    </form>
+        <tr><td colspan="2"><input type="submit" value="Add question" width="100%"/></td><tr>
     </table>
+</form>
 <a href="/admin/helloadmin">Back to admin page</a>
 </body>
 </html>

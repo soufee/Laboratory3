@@ -2,6 +2,7 @@ package main.webservices.session;
 
 import main.DB.models.Gamer;
 import main.general.Authorization;
+import main.utils.exceptions.PassIncorrectException;
 import main.webservices.listeners.MySessionListener;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -16,9 +17,9 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping(value = "/")
 public class LoginServlet {
-private static Authorization userService = new Authorization();
-public static Gamer gamer = null;
-private static Logger userLogger = Logger.getLogger(MySessionListener.class);
+    private static Authorization userService = new Authorization();
+    public static Gamer gamer = null;
+    private static Logger userLogger = Logger.getLogger(MySessionListener.class);
 
 
     @RequestMapping(method = RequestMethod.GET)
@@ -29,7 +30,7 @@ private static Logger userLogger = Logger.getLogger(MySessionListener.class);
 
     @RequestMapping(method = RequestMethod.POST)
     public ModelAndView login(@RequestParam(value = "user", required = true) String login,
-                              @RequestParam(value = "pwd", required = true) String password) {
+                              @RequestParam(value = "pwd", required = true) String password) throws PassIncorrectException {
         ModelAndView mav = new ModelAndView();
 
         if ((gamer = userService.auth(login, password)) != null) {
@@ -50,6 +51,22 @@ private static Logger userLogger = Logger.getLogger(MySessionListener.class);
 
         return mav;
     }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //
 //
@@ -88,5 +105,5 @@ private static Logger userLogger = Logger.getLogger(MySessionListener.class);
 
 //    }
 
-}
+
 

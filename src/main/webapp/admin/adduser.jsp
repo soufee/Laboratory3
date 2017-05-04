@@ -15,11 +15,11 @@
 <body>
 <table border="1" width="50%">
     <form action="/admin/adduser" method="get">
-        <tr> <td>Ник</td><td><input type="text" name="nickname" placeholder="user nickname"/></td>></tr>
+        <tr> <td>Ник</td><td><input type="text" name="nickname" placeholder="user nickname"/></td></tr>
         <tr> <td>Пароль</td><td><input type="text" name="password" placeholder="password"/></td></tr>
         <tr> <td>email</td><td><input type="text" name="email" placeholder="email"/></td></tr>
         <tr> <td>Права админа</td><td><input type="checkbox" name="isadmin" placeholder="isAdmin"/></td></tr>
-        <input type="submit" value="Add User" width="100%"/>
+        <tr><td> <input type="submit" value="Add User" width="100%"/></td></tr>
     </form>
     </table>
 <a href="/admin/helloadmin">Back to admin page</a>

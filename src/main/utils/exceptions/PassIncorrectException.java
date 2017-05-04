@@ -11,8 +11,7 @@ public class PassIncorrectException extends Exception{
 
         public PassIncorrectException(){
 
-           String message = "Password is incorrect";
-     userLogger.debug("Получена ошибка некорректного ввода пароля" + message);
+
         }
 
     }

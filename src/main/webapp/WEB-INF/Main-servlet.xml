@@ -17,10 +17,10 @@
         <beans:property name="suffix" value=".jsp"></beans:property>
     </beans:bean>
 
-    <beans:bean id="gamerService" class="main.DB.service.GamerService" autowire="byName">
-        <beans:property name="gamerDAOInterface" ref="gamersDAO"/>
-    </beans:bean>
-    <beans:bean id="gamersDAO" class="main.DB.daos.GamersDAO"/>
+    <!--<beans:bean id="gamerService" class="main.DB.service.GamerService" autowire="byName">-->
+        <!--<beans:property name="gamerDAOInterface" ref="gamersDAO"/>-->
+    <!--</beans:bean>-->
+    <!--<beans:bean id="gamersDAO" class="main.DB.daos.GamersDAO"/>-->
 
 
 </beans:beans>

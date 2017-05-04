@@ -2,6 +2,7 @@ package main.general;
 
 import main.DB.models.Gamer;
 import main.DB.models.ObjectFactory;
+import main.utils.exceptions.PassIncorrectException;
 import main.webservices.listeners.MySessionListener;
 import main.utils.ConnectionFactory;
 import org.apache.log4j.Logger;
@@ -16,7 +17,7 @@ import java.sql.SQLException;
  */
 public class Authorization {
     private static Logger userLogger = Logger.getLogger(MySessionListener.class);
-    public Gamer findUserByLoginAndPassword(String login, String password) {
+    public Gamer findUserByLoginAndPassword(String login, String password) throws PassIncorrectException {
         Gamer user = null;
         PreparedStatement statement;
         try (Connection connection = ConnectionFactory.getConnection()) {
@@ -31,6 +32,7 @@ public class Authorization {
             } else
                 {
                     System.out.println("Пароль и логин не совпали");
+                    throw new PassIncorrectException();
                 }
 
         } catch (SQLException e) {
@@ -48,7 +50,7 @@ userLogger.debug("Created an user "+gamer);
 
     }
 
-public Gamer auth(String login, String password) {
+public Gamer auth(String login, String password) throws PassIncorrectException {
 
         Gamer user = findUserByLoginAndPassword(login, password);
     if (user != null && user.isBlocked()) {
@@ -57,8 +59,7 @@ public Gamer auth(String login, String password) {
         return user;
     }
 
-    public boolean isadmin (Gamer g)
-    {
+    public boolean isadmin (Gamer g) throws PassIncorrectException {
 
      String login = g.getNiackname();
      String password = g.getPassword();

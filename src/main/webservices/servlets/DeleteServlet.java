@@ -1,9 +1,12 @@
 package main.webservices.servlets;
 
 import main.DB.service.GamerService;
+import main.DB.service.GamerServiceInterface;
 import main.DB.service.QuestionService;
+import main.DB.service.QuestionServiceInterface;
 import main.webservices.listeners.MySessionListener;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +22,10 @@ import org.springframework.web.servlet.ModelAndView;
 public class DeleteServlet {
 //    int gotId;
 //    String table;
+@Autowired
+GamerServiceInterface service;
+@Autowired
+QuestionServiceInterface service1;
     private static Logger userLogger = Logger.getLogger(MySessionListener.class);
 
     @RequestMapping(method = RequestMethod.GET)
@@ -33,12 +40,12 @@ public class DeleteServlet {
                               @RequestParam(value = "table", required = true) String table) {
         ModelAndView mav = new ModelAndView();
         if (table.equals("question")) {
-            QuestionService service = new QuestionService();
-            service.deleteQuestion(Integer.parseInt(id));
+          //  QuestionService service1 = new QuestionService();
+            service1.deleteQuestion(Integer.parseInt(id));
             userLogger.debug("deleted the question " + id);
             mav.setViewName("redirect:admin/helloadmin");
         } else if (table.equals("user")) {
-            GamerService service = new GamerService();
+         //   GamerService service = new GamerService();
             service.deleteGamer(Integer.parseInt(id));
             userLogger.debug("deleted the user " + id);
             mav.setViewName("redirect:admin/helloadmin");

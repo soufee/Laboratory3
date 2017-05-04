@@ -13,14 +13,14 @@ import org.springframework.stereotype.Service;
 /**
  * Created by Shoma on 21.04.2017.
  */
-@Component
+@Service
 @Scope("prototype")
 public class GamerService implements GamerServiceInterface {
     private static Logger userLogger = Logger.getLogger(MySessionListener.class);
 
 
     private GamerDAOInterface gamerDAOInterface;
-
+    @Autowired
     public void setGamerDAOInterface(GamerDAOInterface gamerDAOInterface) {
         this.gamerDAOInterface = gamerDAOInterface;
     }

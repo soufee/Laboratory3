@@ -8,6 +8,7 @@ import main.webservices.listeners.MySessionListener;
 import main.utils.ConnectionFactory;
 import org.apache.log4j.Logger;
 import org.postgresql.util.PSQLException;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,8 @@ import java.sql.*;
  * Created by Shoma on 21.04.2017.
  */
 
-
+@Repository
+@Scope("prototype")
 public class GamersDAO implements GamerDAOInterface{
     private static Logger userLogger = Logger.getLogger(MySessionListener.class);
 

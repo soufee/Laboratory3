@@ -6,13 +6,24 @@ import main.DB.models.Question;
 import main.DB.models.Questions;
 import main.webservices.listeners.MySessionListener;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
 
 /**
  * Created by Shoma on 21.04.2017.
  */
+@Service
+@Scope("prototype")
 public class QuestionService implements QuestionServiceInterface {
     private static Logger userLogger = Logger.getLogger(MySessionListener.class);
-    private static QuestionDAOInterface dao = new QuestionsDAO();
+
+
+    private  QuestionDAOInterface dao;
+    @Autowired
+    public void setDao(QuestionDAOInterface dao) {
+        this.dao = dao;
+    }
 
     @Override
     public Questions selectQuestions() {

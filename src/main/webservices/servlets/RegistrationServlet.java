@@ -8,6 +8,7 @@ import main.utils.ConnectionFactory;
 import main.utils.exceptions.PassIncorrectException;
 import main.utils.exceptions.UserIsRegisteredException;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,12 +35,9 @@ import java.sql.Statement;
 @Controller
 @RequestMapping(value = "/registration")
 public class RegistrationServlet{
-
+    @Autowired
+    GamerService service;
     private static Logger userLogger = Logger.getLogger(MySessionListener.class);
-//    String login;
-//    String email;
-//    String password;
-
 
     @RequestMapping(method = RequestMethod.GET)
     public String sayHello() {
@@ -50,7 +48,7 @@ public class RegistrationServlet{
     @RequestMapping(method = RequestMethod.POST)
     public ModelAndView registration(@RequestParam(value = "login", required = true) String login,
                                     @RequestParam(value = "password", required = true) String password,
-                                    @RequestParam(value = "email", required = true) String email) {
+                                    @RequestParam(value = "email", required = true) String email) throws UserIsRegisteredException {
         ModelAndView mav = new ModelAndView();
         Gamer gamer = null;
         if (!(isContainUser(login))&&(!(isContainEmail(email))))
@@ -64,11 +62,71 @@ public class RegistrationServlet{
                 userLogger.error("Пользователь с таким логином или емайлом существует");
                 mav.addObject("Пользователь с таким логином или емайлом существует");
                 mav.setViewName("redirect:registration");
+                throw  new UserIsRegisteredException();
             }
 
 
         return mav;
     }
+
+
+
+    private boolean isContainUser(String login) {
+        Connection connection = ConnectionFactory.getConnection();
+        Statement statement = null;
+        Statement statement1 = null;
+
+        try {
+            statement1 = connection.createStatement();
+            ResultSet result1 = statement1.executeQuery("select * from public.gamer WHERE nickname = '" + login + "'");
+            if (!result1.next()) {
+                return false;
+            } else
+                {
+            return true;
+                }
+            } catch (SQLException e1) {
+            userLogger.error(e1.getMessage());
+        }
+return false;
+    }
+
+
+    private boolean isContainEmail(String email) {
+        Connection connection = ConnectionFactory.getConnection();
+        Statement statement = null;
+        Statement statement1 = null;
+
+        try {
+            statement1 = connection.createStatement();
+            ResultSet result1 = statement1.executeQuery("select * from public.gamer WHERE email = '" + email + "'");
+            if (!result1.next()) {
+                return false;
+            } else
+            {
+                return true;
+            }
+        } catch (SQLException e1) {
+            userLogger.error(e1.getMessage());
+        }
+        return false;
+    }
+
+
+    private void addUser(Gamer g) {
+
+       service.insertGamer(g);
+
+    }
+}
+
+
+
+
+
+
+
+
 
 
 //
@@ -124,53 +182,3 @@ public class RegistrationServlet{
 //            }
 //        }
 //    }
-
-    private boolean isContainUser(String login) {
-        Connection connection = ConnectionFactory.getConnection();
-        Statement statement = null;
-        Statement statement1 = null;
-
-        try {
-            statement1 = connection.createStatement();
-            ResultSet result1 = statement1.executeQuery("select * from public.gamer WHERE nickname = '" + login + "'");
-            if (!result1.next()) {
-                return false;
-            } else
-                {
-            return true;
-                }
-            } catch (SQLException e1) {
-            userLogger.error(e1.getMessage());
-        }
-return false;
-    }
-
-
-    private boolean isContainEmail(String email) {
-        Connection connection = ConnectionFactory.getConnection();
-        Statement statement = null;
-        Statement statement1 = null;
-
-        try {
-            statement1 = connection.createStatement();
-            ResultSet result1 = statement1.executeQuery("select * from public.gamer WHERE email = '" + email + "'");
-            if (!result1.next()) {
-                return false;
-            } else
-            {
-                return true;
-            }
-        } catch (SQLException e1) {
-            userLogger.error(e1.getMessage());
-        }
-        return false;
-    }
-
-
-    private void addUser(Gamer g) {
-
-        GamerService service = new GamerService();
-        service.insertGamer(g);
-
-    }
-}
